@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Book = require('../Models/Book');
 const DevotionalsService = require('./Devotionals');
 
@@ -5,7 +6,7 @@ class BookService {
   async getBook(id) {
     let book;
     
-    if (Book.isValidObjectId(id)) // if search by default _id from mongo
+    if (mongoose.isValidObjectId(id)) // if search by default _id from mongo
       book = await Book.findById(id);
 
     else if (!isNaN(id)) // if search by custom id

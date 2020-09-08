@@ -34,6 +34,6 @@ const book_schema = new db.Schema({
   }
 });
 
-const book = db.model("books", book_schema);
+const Book = db.model("books", book_schema);
 
-module.exports = book;
+module.exports = Book;
