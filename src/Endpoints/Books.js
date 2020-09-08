@@ -1,5 +1,6 @@
 const express = require("express");
 const BookService = require("../Services/Books");
+const apiCodes = require("./ERROR_CODES");
 const router = express.Router();
 
 const path = "/api/v1/books";
@@ -19,7 +20,9 @@ router.get("/", async (req, res) => {
 
   const books = await booksServices.getBookByParams(params);
 
+  res.status(books ? 200 : 404);
   res.json(books || {
+    errorCode: apiCodes.NOT_FOUND.BOOK,
     message: "Not found nothing with that parameters"
   });
 });
@@ -29,7 +32,9 @@ router.get("/:id", async (req, res) => {
 
   const book = await booksServices.getBook(id);
 
+  res.status(book ? 200 : 404);
   res.json(book || {
+    errorCode: apiCodes.NOT_FOUND.BOOK,
     message: "Not found any book with that id"
   });
 });
@@ -39,7 +44,9 @@ router.get("/:id/devotionals", async (req, res) => {
 
   const devotionals = await booksServices.getDevotionals(id, req.query);
 
+  res.status(devotionals ? 200 : 404);
   res.json(devotionals || {
+    errorCode: apiCodes.NOT_FOUND.DEVOTIONAL,
     message: `Not found any devotioanl in the id ${id}`
   });
 });
