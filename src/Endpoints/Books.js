@@ -34,7 +34,7 @@ router.get("/:id", async (req, res) => {
   });
 });
 
-router.get("/api/v1/books/:id/devotionals", async (req, res) => {
+router.get("/:id/devotionals", async (req, res) => {
   const id = req.params.id;
 
   const devotionals = await booksServices.getDevotionals(id, req.query);
