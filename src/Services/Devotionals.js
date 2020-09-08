@@ -17,8 +17,8 @@ class BookService {
     devotionals = [...book.devotionals];
 
     devotionals.sort((devotionalA, devotionalB) => {
-      dateA = devotionalA.date.split('-').join('');
-      dateB = devotionalB.date.split('-').join('');
+      let dateA = devotionalA.date.split('-').join('');
+      let dateB = devotionalB.date.split('-').join('');
       return dateA > dateB ? 1 : dateA < dateB ? -1 : 0;
     });
 
