@@ -25,7 +25,7 @@ class BookService {
     if (day) devotionals = devotionals.filter(devotional => devotional.date.split('-')[2] == day);
     if (month) devotionals = devotionals.filter(devotional => devotional.date.split('-')[1] == month);
     if (year) devotionals = devotionals.filter(devotional => devotional.date.split('-')[0] == year);
-    if (limit) devotionals.length = limit;
+    if (limit && devotionals.length > limit) devotionals.length = limit;
 
     return devotionals.length > 0 ? devotionals : undefined;
   }
