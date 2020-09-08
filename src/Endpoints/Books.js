@@ -47,7 +47,7 @@ router.get("/:id/devotionals", async (req, res) => {
   res.status(devotionals ? 200 : 404);
   res.json(devotionals || {
     errorCode: apiCodes.NOT_FOUND.DEVOTIONAL,
-    message: `Not found any devotioanl in the id ${id}`
+    message: `Not found any devotional`
   });
 });
 
