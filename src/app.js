@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require("express");
 const app = express();
+const jwtSecurity = require("./security");
 
 app.use(express.json());
 
@@ -16,6 +17,6 @@ app.get("/api/v1/", (req, res) => {
 
 // TODO: use autoregister
 const {path, router} = require("./Endpoints/Books");
-app.use(path, router);
+app.use(path, jwtSecurity, router);
 
 module.exports = app;
