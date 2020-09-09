@@ -19,9 +19,11 @@ router.get('/callback', function (req, res, next) {
   console.log("On Callback on API");
   passport.authenticate('auth0', function (err, user, info) {
     if (err) {
+      console.log("ERR: ", err);
       return next(err);
     }
     if (!user) {
+      console.log("No user");
       return res.redirect('/login');
     }
     req.logIn(user, function (err) {
