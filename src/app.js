@@ -12,9 +12,12 @@ const app = express();
 app.use(express.json());
 
 // Session express
-if (app.get("env") === 'production') sessionConfig.cookie.secure = true;
-console.log(app.get("env"));
-app.use(session(sessionConfig));
+if (app.get("env") === 'production') {
+  app.set('trust proxy', 1);
+  sessionConfig.cookie.secure = true;
+}
+
+app.use(session({...sessionConfig, }));
 
 // Passport
 app.use(passport.initialize());
