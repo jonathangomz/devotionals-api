@@ -1,14 +1,14 @@
 const express = require("express");
 const BookService = require("../Services/Books");
-const secured = require("./middleware/secured");
+const jwtSecurity = require("../security");
 const apiCodes = require("./ERROR_CODES");
 const router = express.Router();
 
-const path = "/api/v1/books";
+const path = "/books";
 
 const booksServices = new BookService();
 
-router.use(secured());
+router.use(jwtSecurity);
 
 router.get("/", async (req, res) => {
   let {
