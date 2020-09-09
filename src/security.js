@@ -12,7 +12,7 @@ const jwtSecurity = jwt({
     jwksRequestsPerMinute: 5,
     jwksUri: 'https://jonathangomz.auth0.com/.well-known/jwks.json'
   }),
-  audience: 'https://devotionals-api.herokuapp.com/api/v1',
+  audience: 'https://devotionals-api.herokuapp.com',
   issuer: 'https://jonathangomz.auth0.com/',
   algorithms: ['RS256']
 });
