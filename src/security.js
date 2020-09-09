@@ -48,7 +48,9 @@ passport.deserializeUser(function (user, done) {
 // C) Basic session configuration for express
 const sessionConfig = {
   secret: 'Devotinal API for personal use',
-  cookie: {},
+  cookie: {
+    sameSite: false,
+  },
   resave: false,
   saveUninitialized: true,
 };
