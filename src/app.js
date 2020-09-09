@@ -13,7 +13,6 @@ app.use(express.json());
 
 // Session express
 if (app.get("env") === 'production') sessionConfig.cookie.secure = true;
-console.log(app.get("env"));
 app.use(session(sessionConfig));
 
 // Passport
@@ -23,7 +22,7 @@ app.use(passport.session());
 app.get("", (req, res) => {
   let base_uri = req.protocol + '://' + req.hostname;
   const port = req.connection.localPort;
-  if (port !== undefined && port !== 80 && port !== 443) {
+  if (app.get("env") !== 'production' && port !== undefined && port !== 80 && port !== 443) {
     base_uri += ':' + port;
   }
 
@@ -35,7 +34,7 @@ app.get("", (req, res) => {
 app.get("/api/v1/", (req, res) => {
   let base_uri = req.protocol + '://' + req.hostname;
   const port = req.connection.localPort;
-  if (port !== undefined && port !== 80 && port !== 443) {
+  if (app.get("env") !== 'production' && port !== undefined && port !== 80 && port !== 443) {
     base_uri += ':' + port;
   }
 
