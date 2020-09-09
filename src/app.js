@@ -24,7 +24,7 @@ app.get("/api/v1/", (req, res) => {
   }
 
   res.json({
-    next: `${base_uri}${path}`
+    next: `${base_uri}/api/v1${path}`
   });
 });
 
