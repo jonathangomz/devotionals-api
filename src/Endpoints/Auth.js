@@ -14,7 +14,7 @@ router.get('/login', passport.authenticate('auth0', {
   res.redirect('/login');
 });
 
-// Perform the final stage of authentication and redirect to previously requested URL or '/user'
+// Perform the final stage of authentication and redirect to previously requested URL or '/api/v1/books'
 router.get('/callback', function (req, res, next) {
   passport.authenticate('auth0', function (err, user, info) {
     if (err) {

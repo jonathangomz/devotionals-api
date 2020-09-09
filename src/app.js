@@ -1,14 +1,18 @@
 require('dotenv').config();
 const express = require("express");
 const session = require('express-session');
-const {jwtSecurity, passport, sessionConfig} = require("./security");
+const {
+  jwtSecurity,
+  passport,
+  sessionConfig
+} = require("./security");
 
 const app = express();
 
 app.use(express.json());
 
 // Session express
-if(app.get("env") === 'production') sessionConfig.cookie.secure = true;
+if (app.get("env") === 'production') sessionConfig.cookie.secure = true;
 console.log(app.get("env"));
 app.use(session(sessionConfig));
 
@@ -16,21 +20,41 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("", (req, res) => res.json({
-  path: "/api/v1/"
-}));
+app.get("", (req, res) => {
+  let base_uri = req.protocol + '://' + req.hostname;
+  const port = req.connection.localPort;
+  if (port !== undefined && port !== 80 && port !== 443) {
+    base_uri += ':' + port;
+  }
+
+  res.json({
+    next: `${base_uri}/api/v1/`
+  })
+});
 
 app.get("/api/v1/", (req, res) => {
+  let base_uri = req.protocol + '://' + req.hostname;
+  const port = req.connection.localPort;
+  if (port !== undefined && port !== 80 && port !== 443) {
+    base_uri += ':' + port;
+  }
+
   res.json({
-    path
+    next: `${base_uri}${path}`
   });
 });
 
 // TODO: use autoregister
-const {pathAuth, routerAuth} = require("./Endpoints/Auth");
+const {
+  pathAuth,
+  routerAuth
+} = require("./Endpoints/Auth");
 app.use(pathAuth, routerAuth);
 
-const {path, router} = require("./Endpoints/Books");
+const {
+  path,
+  router
+} = require("./Endpoints/Books");
 app.use(path, router);
 
 module.exports = app;
