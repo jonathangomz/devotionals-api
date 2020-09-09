@@ -1,11 +1,14 @@
 const express = require("express");
 const BookService = require("../Services/Books");
+const secured = require("./middleware/secured");
 const apiCodes = require("./ERROR_CODES");
 const router = express.Router();
 
 const path = "/api/v1/books";
 
 const booksServices = new BookService();
+
+router.use(secured());
 
 router.get("/", async (req, res) => {
   let {
