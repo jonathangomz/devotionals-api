@@ -1,27 +1,8 @@
 require('dotenv').config();
 const express = require("express");
-const session = require('express-session');
-const {
-  jwtSecurity,
-  passport,
-  sessionConfig
-} = require("./security");
-
 const app = express();
 
 app.use(express.json());
-
-// Session express
-if (app.get("env") === 'production') {
-  app.set('trust proxy', 1);
-  sessionConfig.cookie.secure = true;
-}
-
-app.use(session({...sessionConfig, }));
-
-// Passport
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.get("", (req, res) => {
   let base_uri = req.protocol + '://' + req.hostname;
@@ -47,17 +28,16 @@ app.get("/api/v1/", (req, res) => {
   });
 });
 
-// TODO: use autoregister
-const {
-  pathAuth,
-  routerAuth
-} = require("./Endpoints/Auth");
-app.use(pathAuth, routerAuth);
-
+/** TODO_START: Use autoregister  */
 const {
   path,
   router
 } = require("./Endpoints/Books");
-app.use(path, router);
+app.use(`/api/v1${path}`, router);
+
+const unauthorized = require("./Endpoints/Unauthorized");
+app.use(unauthorized);
+/** TODO_END */
+
 
 module.exports = app;
