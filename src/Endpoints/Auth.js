@@ -16,19 +16,14 @@ router.get('/login', passport.authenticate('auth0', {
 
 // Perform the final stage of authentication and redirect to previously requested URL or '/api/v1/books'
 router.get('/callback', function (req, res, next) {
-  console.log("On Callback on API");
   passport.authenticate('auth0', function (err, user, info) {
     if (err) {
-      console.log("ERR: ", err);
       return next(err);
     }
     if (!user) {
-      console.log("No user", info);
       return res.redirect('/login');
     }
     req.logIn(user, function (err) {
-      console.log("USER: ", user);
-      console.log("Return To: ", req.session.returnTo);
       if (err) {
         return next(err);
       }
@@ -41,7 +36,10 @@ router.get('/callback', function (req, res, next) {
 
 // Perform session logout and redirect to homepage
 router.get('/logout', (req, res) => {
+  console.log(req);
+  console.log("On Logout");
   req.logout();
+  console.log("After Logout");
 
   let returnTo = req.protocol + '://' + req.hostname;
   const port = req.connection.localPort;
