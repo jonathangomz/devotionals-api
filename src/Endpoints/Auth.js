@@ -16,6 +16,7 @@ router.get('/login', passport.authenticate('auth0', {
 
 // Perform the final stage of authentication and redirect to previously requested URL or '/api/v1/books'
 router.get('/callback', function (req, res, next) {
+  console.log("On Callback on API");
   passport.authenticate('auth0', function (err, user, info) {
     if (err) {
       return next(err);
@@ -24,6 +25,8 @@ router.get('/callback', function (req, res, next) {
       return res.redirect('/login');
     }
     req.logIn(user, function (err) {
+      console.log("USER: ", user);
+      console.log("Return To: ", req.session.returnTo);
       if (err) {
         return next(err);
       }
