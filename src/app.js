@@ -13,6 +13,7 @@ app.use(express.json());
 
 // Session express
 if (app.get("env") === 'production') sessionConfig.cookie.secure = true;
+console.log(app.get("env"));
 app.use(session(sessionConfig));
 
 // Passport
