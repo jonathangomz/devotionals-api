@@ -1,5 +1,5 @@
 const express = require("express");
-const BookService = require("../Services/Books");
+const BookService = require("../services/Books");
 const jwtSecurity = require("../security");
 const apiCodes = require("./ERROR_CODES");
 const router = express.Router();

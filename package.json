@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
+    "start": "node src/bin/www",
+    "dev": "nodemon src/bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,7 +16,10 @@
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
     "jwks-rsa": "^1.9.0",
-    "mongoose": "^5.10.2"
+    "mongoose": "^5.10.2",
+    "morgan": "~1.9.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9"
   },
   "devDependencies": {
     "jest": "^26.4.2",
