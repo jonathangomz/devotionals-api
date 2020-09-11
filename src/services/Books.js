@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Book = require('../Models/Book');
+const Book = require('../models/Book');
 const DevotionalsService = require('./Devotionals');
 
 class BookService {

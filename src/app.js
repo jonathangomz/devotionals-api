@@ -1,8 +1,15 @@
 require('dotenv').config();
+
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const express = require("express");
+
 const app = express();
 
+app.use(logger('dev'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.get("", (req, res) => {
   let base_uri = req.protocol + '://' + req.hostname;
@@ -32,10 +39,10 @@ app.get("/api/v1/", (req, res) => {
 const {
   path,
   router
-} = require("./Endpoints/Books");
+} = require("./routes/Books");
 app.use(`/api/v1${path}`, router);
 
-const unauthorized = require("./Endpoints/Unauthorized");
+const unauthorized = require("./routes/Unauthorized");
 app.use(unauthorized);
 /** TODO_END */
 
