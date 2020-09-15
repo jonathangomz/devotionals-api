@@ -17,10 +17,15 @@ class BookService {
     return book;
   }
 
-  async getBookByParams(params) {
+  async getBookByParams(params, exclude) {
+    const to_exclude = {};
+    exclude.map(ex => to_exclude[ex] = 0);
+
+    console.log(to_exclude);
+
     const all = await Book.find({
       ...params
-    }, {devotionals: 0});
+    }, to_exclude);
 
     return all.length > 0 ? all : undefined;
   }

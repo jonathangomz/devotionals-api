@@ -14,6 +14,7 @@ router.get("/", async (req, res) => {
   let {
     year,
     author,
+    exclude,
   } = req.query;
 
   const params = {};
@@ -21,7 +22,10 @@ router.get("/", async (req, res) => {
   if (year) params.year = year;
   if (author) params.author = author;
 
-  const books = await booksServices.getBookByParams(params);
+  if (!exclude) exclude = [];
+  if(!Array.isArray(exclude)) exclude = [exclude];
+
+  const books = await booksServices.getBookByParams(params, exclude);
 
   res.status(books ? 200 : 404);
   res.json(books || {
