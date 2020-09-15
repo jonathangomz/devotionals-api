@@ -34,7 +34,19 @@ class BookService {
       devotionals = devotionalsService.filterDevotionalsByParams(book, params);
     }
 
-    return params && devotionals || book.devotionals;
+    return (params && devotionals) || (book && book.devotionals) || undefined;
+  }
+
+  async getDevotionalById(bookId, id) {
+    const book = await this.getBook(bookId);
+    let devotional;
+    
+    if(mongoose.isValidObjectId(id) && book && book.devotionals){
+      const devotionalsService = new DevotionalsService();
+      devotional = devotionalsService.getById(book.devotionals, id);
+    }
+
+    return devotional;
   }
 }
 
