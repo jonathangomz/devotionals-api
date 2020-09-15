@@ -1,4 +1,4 @@
-# ASD Devotionals [API with sessions]
+# ASD Devotionals [API with token]
 API for ASD devotionals
 
 Read the [Documentation][1] for more information of how to use the api.
