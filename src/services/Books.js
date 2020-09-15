@@ -20,7 +20,7 @@ class BookService {
   async getBookByParams(params) {
     const all = await Book.find({
       ...params
-    });
+    }, {devotionals: 0});
 
     return all.length > 0 ? all : undefined;
   }
