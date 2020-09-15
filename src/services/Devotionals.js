@@ -1,4 +1,12 @@
 class BookService {
+  async getById(devotionals, id) {
+    if(!Array.isArray(devotionals)) return undefined;
+
+    const devotional = devotionals.filter(devotional => devotional._id == id);
+
+    return devotional.length > 0 ? devotional[0] : undefined;
+  }
+
   async filterDevotionalsByParams(book, params) {
     let {
       limit,
