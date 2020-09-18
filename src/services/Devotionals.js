@@ -37,6 +37,24 @@ class BookService {
 
     return devotionals.length > 0 ? devotionals : undefined;
   }
+
+  getToday(devotionals) {
+    if(!Array.isArray(devotionals)) return 
+    
+    const currentDate = getCurrentDate();
+    const todaysDevotional = devotionals.filter(devotional => devotional.date === currentDate)[0];
+    return todaysDevotional;
+  }
+}
+
+const getCurrentDate = () => {
+  const fullDate = new Date();
+
+  const year = fullDate.getFullYear();
+  const month = fullDate.getMonth() < 9 ? "0" + fullDate.getMonth() : fullDate.getMonth();
+  const day = fullDate.getDate() < 9 ? "0" + fullDate.getDate() : fullDate.getDate();
+
+  return `${year}-${month}-${day}`;
 }
 
 module.exports = BookService;

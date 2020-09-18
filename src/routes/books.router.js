@@ -1,14 +1,12 @@
-const express = require("express");
+const router = require("express").Router();
 const BookService = require("../services/Books");
 const jwtSecurity = require("../security");
-const ERRCodes = require("./ERROR_CODES");
-const router = express.Router();
-
-const path = "/books";
+const ERRCodes = require("../ERROR_CODES");
 
 const booksServices = new BookService();
-
 router.use(jwtSecurity);
+
+const path = "books";
 
 router.get("/", async (req, res) => {
   let {

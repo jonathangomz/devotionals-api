@@ -3,6 +3,8 @@ const Book = require('../models/Book');
 const DevotionalsService = require('./Devotionals');
 
 class BookService {
+  #devotionalsService = new DevotionalsService();
+
   async getBook(id) {
     let book;
     
@@ -21,8 +23,6 @@ class BookService {
     const to_exclude = {};
     exclude.map(ex => to_exclude[ex] = 0);
 
-    console.log(to_exclude);
-
     const all = await Book.find({
       ...params
     }, to_exclude);
@@ -34,10 +34,8 @@ class BookService {
     const book = await this.getBook(bookId);
     let devotionals;
     
-    if(book){
-      const devotionalsService = new DevotionalsService();
-      devotionals = devotionalsService.filterDevotionalsByParams(book, params);
-    }
+    if(book)
+      devotionals = this.#devotionalsService.filterDevotionalsByParams(book, params);
 
     return (params && devotionals) || (book && book.devotionals) || undefined;
   }
@@ -46,12 +44,42 @@ class BookService {
     const book = await this.getBook(bookId);
     let devotional;
     
-    if(mongoose.isValidObjectId(id) && book && book.devotionals){
-      const devotionalsService = new DevotionalsService();
-      devotional = devotionalsService.getById(book.devotionals, id);
-    }
+    if(mongoose.isValidObjectId(id) && book && book.devotionals)
+      devotional = this.#devotionalsService.getById(book.devotionals, id);
 
     return devotional;
+  }
+
+  async getDailyDevotional(id) {
+    const book = await this.getBook(id);
+    let devotional;
+
+    if(book && book.get('devotionals'))
+      devotional = this.#devotionalsService.getToday(book.get('devotionals'));
+      
+    return devotional;
+  }
+
+  async getDailyDevotionals() {
+    const books = await this.getBookByParams({year: new Date().getFullYear()}, ['year']);
+    let devotionals = [];
+
+    if(books){
+      for(const book of books) {
+        const devotional = this.#devotionalsService.getToday(book.get('devotionals'));
+        devotionals.push({
+          _id: book._id,
+          title: book.get('title'),
+          author: book.get('author'),
+          category: book.get('category'),
+          image: book.get('image'),
+          devotionals: [
+            devotional
+          ]
+        });
+      }
+    }
+    return devotionals;
   }
 }
 
