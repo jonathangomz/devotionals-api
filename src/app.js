@@ -4,6 +4,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const express = require("express");
 
+const apiCodes = require('./ERROR_CODES');
+const autoregister = require('./autoregister');
+
 const app = express();
 
 app.use(logger('dev'));
@@ -23,28 +26,17 @@ app.get("", (req, res) => {
   })
 });
 
-app.get("/api/v1/", (req, res) => {
-  let base_uri = req.protocol + '://' + req.hostname;
-  const port = req.connection.localPort;
-  if (app.get("env") !== 'production' && port !== undefined && port !== 80 && port !== 443) {
-    base_uri += ':' + port;
-  }
+// Register all routers
+autoregister(app, "/api/v1");
 
-  res.json({
-    next: `${base_uri}/api/v1${path}`
-  });
+// Fallback for unauthorized request
+app.use(function (err, req, res, next) {
+  if(err.name === "UnauthorizedError") {
+    res.status(401).json({
+      errorCode: apiCodes.UNAUTHORIZED,
+      message: "No authorization for the endpoint"
+    })
+  } else next(err);
 });
-
-/** TODO_START: Use autoregister  */
-const {
-  path,
-  router
-} = require("./routes/Books");
-app.use(`/api/v1${path}`, router);
-
-const unauthorized = require("./routes/Unauthorized");
-app.use(unauthorized);
-/** TODO_END */
-
 
 module.exports = app;
