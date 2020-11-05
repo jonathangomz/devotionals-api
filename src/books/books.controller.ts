@@ -11,9 +11,7 @@ export class BooksController {
   @Get()
   findAll(@Res() res: Response): void {
     this.bookService.findAll()
-    .then((books) => {
-      res.status(HttpStatus.OK).json(books);
-    })
+    .then((books) => res.status(HttpStatus.OK).json(books))
     .catch((err) => res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(err))
   }
 
