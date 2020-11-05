@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BooksModule } from './books/books.module';
+import { DevotionalsController } from './devotionals/devotionals.controller';
+import { DevotionalsService } from './devotionals/devotionals.service';
+import { DevotionalsModule } from './devotionals/devotionals.module';
 
 @Module({
   imports: [
@@ -16,6 +19,7 @@ import { BooksModule } from './books/books.module';
       inject: [ConfigService],
     }),
     BooksModule,
+    DevotionalsModule,
   ],
 })
 export class AppModule {}

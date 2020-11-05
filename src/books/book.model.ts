@@ -1,5 +1,5 @@
-import { MongooseModule, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Mongoose, SchemaType, SchemaTypes, Types } from "mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document, SchemaTypes } from "mongoose";
 
 export type BookDocument = Book & Document;
 
