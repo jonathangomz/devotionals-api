@@ -10,8 +10,8 @@ export class Devotional {
   })
   _id: string;
 
-  @Prop([String])
-  title: string[];
+  @Prop()
+  title: string;
 
   @Prop()
   date: string;
