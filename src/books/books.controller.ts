@@ -1,7 +1,6 @@
 import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { DevotionalsService } from 'src/devotionals/devotionals.service';
-import { Book } from './book.model';
 import { BooksService } from './books.service';
 
 @Controller('books')
