@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/jonathangomz/jonathangomz.github.io/master/favicon.ico?token=AFZS44ZAVKOIELX6JDX4OMS7VWFCQ" width="80" alt="Personal Page Logo"/>
+  <img src="./main.svg" width="80" alt="Personal Page Logo"/>
 </p>
 <p align="center">API for ASD devotionals</p>
 
