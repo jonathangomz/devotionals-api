@@ -6,7 +6,7 @@
 ## Description
 
 An API for retrieve ASD devotionals. \
-The database is public for reading and the URL connection can be found in the app module. \
+The database connection string is read from the `MONGODB_URI` environment variable, not hardcoded in the source. See [Configuration](#configuration). \
 Feel free to use it.
 
 ## Installation
@@ -19,6 +19,25 @@ $ git clone https://github.com/jonathangomz/devotionals-api.git
 $ cd devotionals-api
 $ npm install
 ```
+
+## Configuration
+
+The app needs a MongoDB connection string. It is read from the `MONGODB_URI`
+environment variable and is **not** stored in the repository.
+
+```bash
+# Create your local env file from the template
+$ cp .env.example .env
+
+# Then edit .env and set MONGODB_URI to your own connection string
+```
+
+`MONGODB_URI` is required: the app throws on startup if it is missing rather
+than attempting to connect to an undefined URI. `.env` is gitignored, so never
+commit it or paste a real credential into the source.
+
+> **Note:** the original Heroku deployment for this project is retired. The
+> `Procfile` is left over from it and is no longer used.
 
 ## Running the app
 
